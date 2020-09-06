@@ -1,6 +1,6 @@
 
 ## ChromeGCN
-#### Graph Neural Networks for Genomic Predictions
+#### Graph Neural Networks for DNA Sequence Classification
 
 This repository contains a PyTorch implementation of ChromeGCN from [Graph Convolutional Networks for Epigenetic State Prediction Using Both Sequence and 3D Genome Data (Lanchantin and Qi 2019)](https://www.biorxiv.org/content/10.1101/840173v1)
 
