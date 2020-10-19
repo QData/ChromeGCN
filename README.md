@@ -1,6 +1,13 @@
+<img src="chromegcn.png" width="47%" height="47%">
 
-## ChromeGCN
-#### Graph Neural Networks for Genomics
+**ChromeGCN: Graph Neural Networks for Genomics**<br/>
+Jack Lanchantin and Yanjun Qi<br/>
+Bioinformatics 2020<br/>
+[[paper]](https://www.biorxiv.org/content/10.1101/840173v1)
+[[slides]](https://docs.google.com/presentation/d/1mb8Q7dKsmHs172XTu63OlJ3zvfLXSvGsI-tx9VO1Nak/edit?usp=sharing)
+[[poster]](http://www.cs.virginia.edu/~jjl5sw/documents/ChromeGCN_poster.pdf)
+
+
 This repository contains a PyTorch implementation of ChromeGCN from [Graph Convolutional Networks for Epigenetic State Prediction Using Both Sequence and 3D Genome Data](https://www.biorxiv.org/content/10.1101/840173v1) (Lanchantin and Qi 2019)
 
 
