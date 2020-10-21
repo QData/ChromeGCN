@@ -11,19 +11,6 @@ Bioinformatics 2020<br/>
 This repository contains a PyTorch implementation of ChromeGCN from [Graph Convolutional Networks for Epigenetic State Prediction Using Both Sequence and 3D Genome Data](https://www.biorxiv.org/content/10.1101/840173v1) (Lanchantin and Qi 2019)
 
 
-```
-@article{lanchantin2019graph,
-  title={Graph Convolutional Networks for Epigenetic State Prediction Using Both Sequence and 3D Genome Data},
-  author={Lanchantin, Jack and Qi, Yanjun},
-  journal={BioRxiv},
-  pages={840173},
-  year={2019},
-  publisher={Cold Spring Harbor Laboratory}
-}
-```
-
-
-
 ### Get the data
 
 Download the raw and processed data using the following commands (13GB zipped, 90GB unzipped):
@@ -60,3 +47,14 @@ CUDA_VISIBLE_DEVICES=0 python main.py -batch_size 64 -d_model 128 -epochs 1000 -
 
 
 
+
+```
+@article{lanchantin2019graph,
+  title={Graph Convolutional Networks for Epigenetic State Prediction Using Both Sequence and 3D Genome Data},
+  author={Lanchantin, Jack and Qi, Yanjun},
+  journal={BioRxiv},
+  pages={840173},
+  year={2019},
+  publisher={Cold Spring Harbor Laboratory}
+}
+```
