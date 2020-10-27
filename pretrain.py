@@ -34,7 +34,7 @@ def pretrain(WindowModel,split_data, crit, optimizer,epoch,data_dict,opt,split):
         if (batch[0][0].size(0) < opt.batch_size): # multi-gpu padding
             src,tgt = util_methods.pad_batch(opt.batch_size,src,tgt)
 
-        x_out_f,x_out_r,pred,attn_f,attn_r = WindowModel(src[0],None,data_dict['src'])
+        x_out_f,x_out_r,pred,attn_f,attn_r = WindowModel(src[0], data_dict['src'])
 
         if (batch[0][0].size(0) < opt.batch_size): # multi-gpu unpadding 
             x_out_f,x_out_r,pred,tgt,attn_f,attn_r = util_methods.unpad_batch(batch[0][0].size(0),x_out_f,x_out_r,pred,tgt,attn_f,attn_r)
