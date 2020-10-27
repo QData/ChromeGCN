@@ -78,18 +78,15 @@ class GraphNonStrandSpecific(Module):
                              "{0}.".format(mode))
         self.mode = mode
 
-    def forward(self, src, adj,src_dict=None):
-        if adj is not None:
-            print('adj not implemented for NonStrandSpecific!')
-            # raise NotImplementedError
+    def forward(self, src, src_dict=None):
         
         # reverse_input = _flip(_flip(src, 1), 2) # for one hot
         reverse_comp = _flip(src, 1)
         reverse_comp = _complement(reverse_comp,src_dict)
     
-        x_out,y_out,attn = self.model.forward(src, adj)
+        x_out,y_out,attn = self.model.forward(src)
 
-        x_out_rev,y_out_rev,attn_rev = self.model.forward(reverse_comp, adj)
+        x_out_rev,y_out_rev,attn_rev = self.model.forward(reverse_comp)
         if self.mode == "mean":
             if attn is not None:
                 return x_out,x_out_rev, (y_out + y_out_rev) / 2, attn, attn_rev

@@ -38,11 +38,11 @@ def main(opt):
 	print('==> Creating window_model')
 	#################### Creating WindowModel  ####################
 	if opt.window_model == 'deepsea':
-		WindowBase = DeepSEA(128, 128,opt.tgt_vocab_size,opt.dropout,opt.seq_length)
+		WindowBase = DeepSEA(opt.tgt_vocab_size, opt.seq_length)
 	elif opt.window_model == 'expecto':
-		WindowBase = Expecto(128, 128,opt.tgt_vocab_size,opt.dropout,opt.seq_length)
+		WindowBase = Expecto(opt.tgt_vocab_size, opt.seq_length)
 	elif opt.window_model == 'danq':
-		WindowBase = DanQ(128, 128,opt.tgt_vocab_size,opt.dropout,opt.seq_length)
+		WindowBase = DanQ(opt.tgt_vocab_size)
 
 	WindowModel = GraphNonStrandSpecific(WindowBase)
 	# print(WindowModel)

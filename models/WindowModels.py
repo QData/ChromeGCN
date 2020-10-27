@@ -6,20 +6,20 @@ from pdb import set_trace as stop
 import math
 from torch.nn.parameter import Parameter
 
-"""
-Independent Window Models
-
-Expecto (Large CNN)
-DeepSEA (Small CNN)
-DanQ (CNN + RNN)
-
-Input: DNA window
-Output: Epigenomic state prediction for the single window
-
-"""
-
 class Expecto(nn.Module):
-    def __init__(self, nfeat, nhid, nclass, dropout,seq_length):
+    """An implementation of the ExPecto model described in "Deep learning 
+    sequence-based ab initio prediction of variant effects on expression and 
+    disease risk", Zhou et al., 2018.
+
+    https://www.nature.com/articles/s41588-018-0160-6
+
+    Args:
+        nclass (int): The number of classes to predict
+        seq_length (int): The length of the input sequence window
+
+    """
+
+    def __init__(self, nclass, seq_length):
         super(Expecto, self).__init__()
         conv_kernel_size = 8
         pool_kernel_size = 4
@@ -66,7 +66,17 @@ class Expecto(nn.Module):
         self.relu = nn.ReLU()
 
 
-    def forward(self, x, adj,src_dict=None):
+    def forward(self, x):
+        """Predicts the epigenomic state of a given DNA sequence window
+
+        Args:
+            x (tensor): The DNA sequence window
+
+        Returns:
+            The features and the predicted epigenomic state for the input DNA sequence window
+
+        """
+
         x = self.src_word_emb(x)
         out = self.conv_net(x.permute(0,2,1))
         reshape_out = out.view(out.size(0), 960 * self._n_channels)
@@ -77,7 +87,18 @@ class Expecto(nn.Module):
         return x_feat,predict,None
 
 class DeepSEA(nn.Module):
-    def __init__(self, nfeat, nhid, nclass, dropout,seq_length):
+    """An implementation of the DeepSEA model described in "Predicting effects
+    of noncoding variants with deep learning–based sequence model", Zhou and Troyanskaya,
+    2015.
+
+    https://www.nature.com/articles/nmeth.3547 
+
+     Args:
+        nclass (int): The number of classes to predict
+        seq_length (int): The length of the input sequence window
+
+    """
+    def __init__(self, nclass, seq_length):
         super(DeepSEA, self).__init__()
         conv_kernel_size = 8
         pool_kernel_size = 4
@@ -114,7 +135,16 @@ class DeepSEA(nn.Module):
         self.classifier = nn.Linear(linear_size, n_targets)
 
 
-    def forward(self, x, adj,src_dict=None):
+    def forward(self, x):
+        """Predicts the epigenomic state of a given DNA sequence window
+
+        Args:
+            x (tensor): The DNA sequence window
+
+        Returns:
+            The features and the predicted epigenomic state for the input DNA sequence window
+
+        """
         x = self.src_word_emb(x)
         out = self.conv_net(x.permute(0,2,1))
         reshape_out = out.view(out.size(0), 960 * self.n_channels)
@@ -126,7 +156,18 @@ class DeepSEA(nn.Module):
         return x_feat,predict,None
 
 class DanQ(nn.Module):
-    def __init__(self, nfeat, nhid, nclass, dropout,seq_length):
+    """An implementation of the DanQ model described in "DanQ: a hybrid 
+    convolutional and recurrent neural network for predicting the function 
+    of DNA sequences", Quang and Xie, 2015. 
+
+    https://www.biorxiv.org/content/10.1101/032821v1 
+
+    Args:
+        nclass (int): The number of classes to predict
+
+    """
+
+    def __init__(self, nclass):
         super(DanQ, self).__init__()
         self.Conv1 = nn.Conv1d(in_channels=5, out_channels=320, kernel_size=26)
         self.Maxpool = nn.MaxPool1d(kernel_size=13, stride=13)
@@ -139,7 +180,16 @@ class DanQ(nn.Module):
         self.Linear2 = nn.Linear(925, nclass)
         self.src_word_emb = nn.Embedding(5, 5)
 
-    def forward(self, input, adj,src_dict=None):
+    def forward(self, input):
+        """Predicts the epigenomic state of a given DNA sequence window
+
+        Args:
+            input (tensor): The DNA sequence window
+
+        Returns:
+            The features and the predicted epigenomic state for the input DNA sequence window
+
+        """
         x = self.src_word_emb(input).permute(0,2,1)
         x = self.Conv1(x)
         x = F.relu(x)
